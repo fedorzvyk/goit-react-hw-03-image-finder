@@ -23,15 +23,15 @@ export class App extends Component {
     total: '',
   };
 
-  // componentDidMount() {
-  //   this.setState({ isloading: true });
-  //   const { searchName, page } = this.state;
+  componentDidMount() {
+    this.setState({ isloading: true });
+    const { searchName, page } = this.state;
 
-  //   getImages(searchName, page).then(data => {
-  //     this.setState({ images: data.hits });
-  //     this.setState({ isloading: false });
-  //   });
-  // }
+    getImages(searchName, page).then(data => {
+      this.setState({ images: data.hits });
+      this.setState({ isloading: false });
+    });
+  }
 
   componentDidUpdate(prevProps, prevState) {
     const { searchName, page } = this.state;
@@ -39,7 +39,7 @@ export class App extends Component {
       this.setState({ isloading: true });
       getImages(searchName, page)
         .then(data => {
-          console.log(data);
+          // console.log(data);
           this.setState({ total: data.totalHits });
           this.setState(({ images }) => ({
             images:

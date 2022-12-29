@@ -1,7 +1,7 @@
 import { ImageGalleryItem } from 'components/ImageGalleryItem/ImageGalleryItem';
 
 export const ImageGallery = ({ images, onClickImage }) => {
-  console.log(images);
+  // console.log(images);
 
   return (
     <ul className="ImageGallery">

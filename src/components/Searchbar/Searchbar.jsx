@@ -16,7 +16,7 @@ export class Searchbar extends Component {
       return toast.warn('Write something!');
     }
     this.props.onFormSubmit(this.state.searchName);
-    this.setState({ searchName: '' });
+    // this.setState({ searchName: '' });
   };
 
   render() {

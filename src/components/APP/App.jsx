@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { ToastContainer } from 'react-toastify';
-import { Box } from './Box';
+import { Box } from '../Box';
 import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
 
-import { Loader } from './Loader/Loader';
-import { Searchbar } from './Searchbar/Searchbar';
+import { Loader } from '../Loader/Loader';
+import { Searchbar } from '../Searchbar/Searchbar';
 import { ImageGallery } from 'components/ImageGallery/ImageGallery';
 import { Button } from 'components/Button/Button';
-import { getImages } from '../api/api';
+import { getImages } from '../../api/api';
 import { Notification } from './App.styled';
 
 export class App extends Component {

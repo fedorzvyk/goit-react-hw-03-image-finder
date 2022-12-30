@@ -9,12 +9,9 @@ export const Header = styled.header`
   justify-content: center;
   align-items: center;
   min-height: 64px;
-  padding-right: 24px;
-  padding-left: 24px;
-  padding-top: 12px;
-  padding-bottom: 12px;
-  color: #fff;
-  background-color: #3f51b5;
+  padding: ${p => p.theme.space[4]}px ${p => p.theme.space[4]}px;
+  color: ${p => p.theme.colors.white};
+  background-color: ${p => p.theme.colors.background};
   box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
     0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
 `;
@@ -23,8 +20,8 @@ export const HeaderForm = styled.form`
   align-items: center;
   width: 100%;
   max-width: 600px;
-  background-color: #fff;
-  border-radius: 3px;
+  background-color: ${p => p.theme.colors.white};
+  border-radius: ${p => p.theme.radii.normal};
   overflow: hidden;
 `;
 export const FormButton = styled.button`
@@ -59,13 +56,12 @@ export const FormInput = styled.input`
   display: inline-block;
   width: 100%;
   font: inherit;
-  font-size: 20px;
+  font-size: ${p => p.theme.fontSizes.m};
   border: none;
   outline: none;
-  padding-left: 4px;
-  padding-right: 4px;
+  padding: 0 ${p => p.theme.space[3]}px;
   ::placeholder {
     font: inherit;
-    font-size: 18px;
+    font-size: ${p => p.theme.fontSizes.m};
   }
 `;

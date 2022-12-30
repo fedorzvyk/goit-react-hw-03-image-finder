@@ -4,10 +4,10 @@ export const theme = {
     white: '#fff',
     gray: 'gray',
     text: '#2a2a2a',
-    background: '#fff',
-    primary: 'orange',
+    background: '#3f51b5',
+    primary: '#3f51b5',
     secondary: '#05a',
-    accent: '#609',
+    accent: '#303f9f',
     muted: '#f6f6f6',
   },
   space: [0, 2, 4, 8, 16, 32, 64, 128, 256],
@@ -19,12 +19,12 @@ export const theme = {
   fontSizes: {
     xs: '12px',
     s: '14px',
-    m: '16px',
+    m: '18px',
     l: '32px',
     xl: '64px',
   },
   fontWeights: {
-    normal: 400,
+    normal: 500,
     bold: 700,
   },
   lineHeights: {
@@ -37,7 +37,7 @@ export const theme = {
   },
   radii: {
     none: '0',
-    normal: '8px',
+    normal: '4px',
     round: '50%',
   },
 };

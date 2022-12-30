@@ -28,7 +28,7 @@ export class App extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { searchName, page, images } = this.state;
+    const { searchName, page } = this.state;
 
     if (prevState.searchName !== searchName || prevState.page !== page) {
       this.setState({ status: 'pending' });

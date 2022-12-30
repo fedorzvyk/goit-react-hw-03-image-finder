@@ -224,10 +224,11 @@ img {
   background-color: #303f9f;
 }
 
-.Loader {
+.Loader,
+.Notification {
   margin: 0 auto;
 }
 
-/* .ModalImg {
-  height: 100vh;
-} */
+.ModalImg {
+  max-height: 100vh;
+}

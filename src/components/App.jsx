@@ -28,13 +28,16 @@ export class App extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { searchName, page } = this.state;
+    const { searchName, page, images } = this.state;
+
     if (prevState.searchName !== searchName || prevState.page !== page) {
       this.setState({ status: 'pending' });
 
       getImages(searchName, page)
         .then(data => {
-          // console.log(data);
+          if (prevState.searchName !== searchName && data.hits.length !== 0) {
+            toast.success(`We find ${data.totalHits} images`);
+          }
 
           this.setState(({ images }) => ({
             images:
@@ -46,6 +49,7 @@ export class App extends Component {
 
           if (data.hits.length === 0) {
             toast.warn('Try again');
+            this.setState({ status: 'rejected' });
           } else if (data.hits.length < 12) {
             toast.warn('These are all images we can show!');
             this.setState({ status: 'rejected' });
@@ -74,7 +78,9 @@ export class App extends Component {
     return (
       <div className="App">
         <Searchbar onFormSubmit={this.handleFformSubmit} />
-        {images.length === 0 && <h2>No images on your request</h2>}
+        {status === 'rejected' && images.length === 0 && (
+          <h2 className="Notification">Images not found . Please try again</h2>
+        )}
         {images.length > 0 && <ImageGallery images={this.state.images} />}
 
         {status === 'pending' && <Loader />}
@@ -82,7 +88,6 @@ export class App extends Component {
         {images.length > 0 && status === 'resolved' && (
           <Button onLoadMore={this.handleLoadMore}>Load more</Button>
         )}
-
         <ToastContainer autoClose={3000} theme="dark" />
       </div>
     );

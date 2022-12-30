@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { createPortal } from 'react-dom';
+import { Overlay, ModalImage } from './Modal.styled';
 
 const modalRoot = document.querySelector('#modal-root');
 
 export class Modal extends Component {
+  static propTypes = {
+    children: PropTypes.node.isRequired,
+    onClose: PropTypes.func.isRequired,
+  };
+
   componentDidMount() {
     window.addEventListener('keydown', this.handleClose);
   }
@@ -21,17 +28,11 @@ export class Modal extends Component {
     }
   };
 
-  // handleBackDropClick = e => {
-  //   if (e.currentTarget === e.target) {
-  //     this.props.onClose();
-  //   }
-  // };
-
   render() {
     return createPortal(
-      <div className="Overlay" onClick={this.handleClose}>
-        <div className="Modal">{this.props.children}</div>
-      </div>,
+      <Overlay onClick={this.handleClose}>
+        <ModalImage>{this.props.children}</ModalImage>
+      </Overlay>,
       modalRoot
     );
   }

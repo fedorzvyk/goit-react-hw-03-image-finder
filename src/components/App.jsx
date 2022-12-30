@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { ToastContainer } from 'react-toastify';
+import { Box } from './Box';
 import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
 
@@ -8,6 +9,7 @@ import { Searchbar } from './Searchbar/Searchbar';
 import { ImageGallery } from 'components/ImageGallery/ImageGallery';
 import { Button } from 'components/Button/Button';
 import { getImages } from '../api/api';
+import { Notification } from './App.styled';
 
 export class App extends Component {
   state = {
@@ -76,10 +78,10 @@ export class App extends Component {
   render() {
     const { images, status } = this.state;
     return (
-      <div className="App">
+      <Box display="grid" gridGap={5} gridTemplateColumns="1fr">
         <Searchbar onFormSubmit={this.handleFformSubmit} />
         {status === 'rejected' && images.length === 0 && (
-          <h2 className="Notification">Images not found . Please try again</h2>
+          <Notification>Images not found. Please try again</Notification>
         )}
         {images.length > 0 && <ImageGallery images={this.state.images} />}
 
@@ -89,7 +91,7 @@ export class App extends Component {
           <Button onLoadMore={this.handleLoadMore}>Load more</Button>
         )}
         <ToastContainer autoClose={3000} theme="dark" />
-      </div>
+      </Box>
     );
   }
 }

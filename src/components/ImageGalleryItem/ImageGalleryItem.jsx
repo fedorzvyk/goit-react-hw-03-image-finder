@@ -1,9 +1,17 @@
 import { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Modal } from 'components/Modal/Modal';
+import { GalleryItem, ItemImage, ModalImg } from './ImageGalleryItem.styled';
 
 export class ImageGalleryItem extends Component {
   state = {
     isModalOpen: false,
+  };
+
+  static propTypes = {
+    largeImageURL: PropTypes.string.isRequired,
+    tags: PropTypes.string.isRequired,
+    webformatURL: PropTypes.string.isRequired,
   };
 
   handletoggleModal = () => {
@@ -16,17 +24,16 @@ export class ImageGalleryItem extends Component {
     const { webformatURL, largeImageURL, tags } = this.props;
     return (
       <>
-        <li className="ImageGalleryItem">
-          <img
-            className="ImageGalleryItem-image"
+        <GalleryItem>
+          <ItemImage
             onClick={() => this.handletoggleModal()}
             src={webformatURL}
             alt={tags}
           />
-        </li>
+        </GalleryItem>
         {this.state.isModalOpen && (
           <Modal onClose={this.handletoggleModal}>
-            <img className="ModalImg" src={largeImageURL} alt={tags} />
+            <ModalImg src={largeImageURL} alt={tags} />
           </Modal>
         )}
       </>

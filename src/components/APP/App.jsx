@@ -19,15 +19,15 @@ export class App extends Component {
     status: 'idle',
   };
 
-  componentDidMount() {
-    this.setState({ status: 'pending' });
-    const { searchName, page } = this.state;
-    getImages(searchName, page).then(data => {
-      this.setState({ images: data.hits });
-      this.setState({ isloading: false });
-      this.setState({ status: 'resolved' });
-    });
-  }
+  // componentDidMount() {
+  //   this.setState({ status: 'pending' });
+  //   const { searchName, page } = this.state;
+  //   getImages(searchName, page).then(data => {
+  //     this.setState({ images: data.hits });
+  //     this.setState({ isloading: false });
+  //     this.setState({ status: 'resolved' });
+  //   });
+  // }
 
   componentDidUpdate(prevProps, prevState) {
     const { searchName, page } = this.state;
@@ -37,6 +37,7 @@ export class App extends Component {
 
       getImages(searchName, page)
         .then(data => {
+          // console.log(data);
           if (prevState.searchName !== searchName && data.hits.length !== 0) {
             toast.success(`We find ${data.totalHits} images`);
           }
@@ -44,8 +45,21 @@ export class App extends Component {
           this.setState(({ images }) => ({
             images:
               this.state.page === 1
-                ? [...data.hits]
-                : [...images, ...data.hits],
+                ? [
+                    ...data.hits.map(
+                      ({ webformatURL, largeImageURL, id, tags }) => {
+                        return { id, webformatURL, largeImageURL, tags };
+                      }
+                    ),
+                  ]
+                : [
+                    ...images,
+                    ...data.hits.map(
+                      ({ webformatURL, largeImageURL, id, tags }) => {
+                        return { id, webformatURL, largeImageURL, tags };
+                      }
+                    ),
+                  ],
           }));
           this.setState({ status: 'resolved' });
 
@@ -72,7 +86,7 @@ export class App extends Component {
   };
 
   handleFformSubmit = searchName => {
-    this.setState({ searchName, page: 1 });
+    this.setState({ searchName, page: 1, images: [] });
   };
 
   render() {

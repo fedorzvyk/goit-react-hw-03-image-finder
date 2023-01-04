@@ -29,14 +29,13 @@ export class App extends Component {
   //   });
   // }
 
-  componentDidUpdate(prevProps, prevState) {
+  async componentDidUpdate(prevProps, prevState) {
     const { searchName, page } = this.state;
+    try {
+      if (prevState.searchName !== searchName || prevState.page !== page) {
+        this.setState({ status: 'pending' });
 
-    if (prevState.searchName !== searchName || prevState.page !== page) {
-      this.setState({ status: 'pending' });
-
-      getImages(searchName, page)
-        .then(data => {
+        await getImages(searchName, page).then(data => {
           // console.log(data);
           if (prevState.searchName !== searchName && data.hits.length !== 0) {
             toast.success(`We find ${data.totalHits} images`);
@@ -65,19 +64,16 @@ export class App extends Component {
 
           if (data.hits.length === 0) {
             toast.warn('Try again');
-            this.setState({ status: 'rejected' });
+            throw new Error('Try again');
           } else if (data.hits.length < 12) {
             toast.warn('These are all images we can show!');
-            this.setState({ status: 'rejected' });
+            throw new Error('These are all images we can show!');
           }
-        })
-        .catch(error => {
-          console.log(error);
-          this.setState({ error });
-          this.setState({ status: 'rejected' });
-          toast.warn('These are all images we can show!');
         });
-      // .finally(() => this.setState({ isloading: false }));
+      }
+    } catch (error) {
+      console.log(error);
+      this.setState({ status: 'rejected' });
     }
   }
 
